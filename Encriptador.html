@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+    
+    <head>
+
+        <meta charset="UTF-8"> 
+        <meta name="viewport" content="width-device-with">
+        <title>Encriptador</title>
+        <link rel="stylesheet" href="Encriptador_Style.css"
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <header>
+            <div>
+                <img src="https://is3-ssl.mzstatic.com/image/thumb/Purple126/v4/e0/06/ca/e006ca20-9b7c-3281-20fb-c5cf84d4079e/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/1200x600wa.png" alt="Logo Alura">
+                <h1 class="encabezado">Oracle Next Education - Encriptador de Textos</h1>
+            </div>
+        </header>
+        <hr/>
+        <main>
+            <section>
+                <table class="textarea">
+                    <tr valign="top">    
+                        <td>
+                            <table class="buttons">
+                                <td><textarea class="text-box1" id="text_encrypt" name="text" rows="26" cols="50" placeholder="Inserte el mensaje a encriptar aquí!"></textarea>
+                                    <p1>&#10082; Acentos no serán encriptados</p1>
+                                    <form>
+                                        <button class="button1" type="button">Encriptar</button>
+                                        <button class="button2" type="button">Desencriptar</button>   
+                                    </form>
+                                </td>
+                            </table>                           
+                        </td>
+                        <td>
+                            <table>
+                                <tr valign="top">
+                                    <td><textarea class="text-box2" id="text-box2" rows="29" cols="40" disabled>Texto encriptado se mostrara aqui</textarea></td>
+                                </tr>
+                                <tr>
+                                    <td><button class="button-copy" type="button">Copiar</button></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </section>        
+        </main>
+        <footer>
+            <p class="copyright">&copy Copyright Josue H - All Right Reserved.  </p>
+            <a class="personal-information" href="https://www.linkedin.com/in/josu%C3%A9-david-hern%C3%A1ndez-moya-21111b91/">Linkedin Site</a>
+            <div class="container">    
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+            </div>
+        </footer>
+    </body>
+
+    <script>
+
+
+        function encriptar(){
+            // Instructions: replace  a = ai - i = imes - u = ufat - e = enter - o = ober for string received
+
+            var text = document.getElementById("text_encrypt").value;
+            rules = {"a":"ai","i":"imes","u":"ufat","e":"enter","o":"ober"};
+            
+            if(/[A-Z]/g.test(text) == false){
+                result = text.split('');
+                for(i=0;i<result.length;i++){
+                    currentChar = result[i];
+                    replacement = rules[currentChar];
+                    if(replacement && currentChar != replacement)
+                        result[i] = replacement;
+                }
+
+                // Display encrypted value in text-box 2
+                
+                var text_encripted = document.getElementById("text-box2").textContent = result.join('');
+                document.getElementById("text_encrypt").value = "";
+                return result;
+            } else{
+                alert("Please enter text in lower case and without capital special characters");
+                document.getElementById("text_encrypt").value = "";
+                document.getElementById("text-box2").value = "";
+                document.getElementById("text_encrypt").focus();
+            }
+        }
+
+        
+        function desencriptar(){
+            textd = document.getElementById("text_encrypt").value;
+            rulesd = {"ai":"a","imes":"i","ufat":"u","enter":"e","ober":"o"};
+
+            if(/[A-Z]/g.test(textd) == false){
+                resultd = textd
+                            .replaceAll(/ai/gi,"a")
+                            .replaceAll(/imes/gi,"i")
+                            .replaceAll(/ufat/gi,"u")
+                            .replaceAll(/enter/gi,"e")
+                            .replaceAll(/ober/gi,"o");
+
+                // Display encrypted value in text-box 2
+                
+                var text_encripted = document.getElementById("text-box2").textContent = resultd;
+                document.getElementById("text_encrypt").value = "";
+                return resultd;
+            } else {
+                alert("Please enter text in lower case and without capital special characters");
+                document.getElementById("text_encrypt").value = "";
+                document.getElementById("text-box2").value = "";
+                document.getElementById("text_encrypt").focus();
+            }
+        }
+
+        function copiar(){
+            textc = document.getElementById("text-box2").value;
+            rulesc = {"ai":"a","imes":"i","ufat":"u","enter":"e","ober":"o"};
+            resultc = textc
+                        .replaceAll(/ai/gi,"a")
+                        .replaceAll(/imes/gi,"i")
+                        .replaceAll(/ufat/gi,"u")
+                        .replaceAll(/enter/gi,"e")
+                        .replaceAll(/ober/gi,"o");
+
+            // Display encrypted value in text-box 2
+            
+            var text_encripted = document.getElementById("text-box2").textContent = resultc;
+            document.getElementById("text_encrypt").value = "";
+            return resultc;
+        }
+
+        var button_encriptar = document.querySelector("button.button1");
+        button_encriptar.onclick = encriptar;
+
+        var button_desencriptar = document.querySelector("button.button2");
+        button_desencriptar.onclick = desencriptar;
+
+        var button_copy = document.querySelector("button.button-copy");
+        button_copy.onclick = copiar;
+        
+    </script>
+
+</html>
